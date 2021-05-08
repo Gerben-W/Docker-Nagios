@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM ubuntu:16.04
 
 ENV NAGIOS_HOME            /opt/nagios
 ENV NAGIOS_USER            nagios
@@ -19,12 +19,6 @@ ENV NG_CGI_URL             /cgi-bin
 ENV NAGIOS_BRANCH          nagios-4.4.6
 ENV NAGIOS_PLUGINS_BRANCH  release-2.3.3
 ENV NRPE_BRANCH            nrpe-4.0.3
-
-RUN cat <<EOF > /etc/apt/sources.list.d/nonfree.list
-    deb http://deb.debian.org/debian/ buster main contrib non-free
-    deb http://deb.debian.org/debian/ buster-updates main contrib non-free
-    deb http://security.debian.org/debian-security buster/updates main contrib non-free
-    EOF
 
 RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set-selections  && \
     echo postfix postfix/mynetworks string "127.0.0.0/8" | debconf-set-selections            && \
