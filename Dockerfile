@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM debian:buster
 
 ENV NAGIOS_HOME            /opt/nagios
 ENV NAGIOS_USER            nagios
