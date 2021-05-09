@@ -44,15 +44,13 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
         libdbd-mysql-perl                   \
         libdbi-dev                          \
         libdbi-perl                         \
-        libfreeradius-client-dev            \
-        libgd2-xpm-dev                      \
-        libgd-gd2-perl                      \
+        libfreeradius-dev                   \
+        libgd-perl                          \
         libjson-perl                        \
         libldap2-dev                        \
         libmysqlclient-dev                  \
         libnagios-object-perl               \
-        libnagios-plugin-perl               \
-        libnet-snmp-perl                    \
+        libmonitoring-plugin-perl           \
         libnet-snmp-perl                    \
         libnet-tftp-perl                    \
         libnet-xmpp-perl                    \
@@ -68,7 +66,7 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
         php-cli                             \
         php-gd                              \
         postfix                             \
-        python-pip                          \
+        python3-pip                         \
         rsyslog                             \
         runit                               \
         smbclient                           \
@@ -76,7 +74,6 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
         snmpd                               \
         snmp-mibs-downloader                \
         unzip                               \
-        python                              \
                                                 && \
     apt-get clean && rm -Rf /var/lib/apt/lists/*
 
@@ -84,16 +81,6 @@ RUN ( egrep -i "^${NAGIOS_GROUP}"    /etc/group || groupadd $NAGIOS_GROUP    )  
     ( egrep -i "^${NAGIOS_CMDGROUP}" /etc/group || groupadd $NAGIOS_CMDGROUP )
 RUN ( id -u $NAGIOS_USER    || useradd --system -d $NAGIOS_HOME -g $NAGIOS_GROUP    $NAGIOS_USER    )  && \
     ( id -u $NAGIOS_CMDUSER || useradd --system -d $NAGIOS_HOME -g $NAGIOS_CMDGROUP $NAGIOS_CMDUSER )
-
-RUN cd /tmp                                           && \
-    git clone https://github.com/multiplay/qstat.git  && \
-    cd qstat                                          && \
-    ./autogen.sh                                      && \
-    ./configure                                       && \
-    make                                              && \
-    make install                                      && \
-    make clean                                        && \
-    cd /tmp && rm -Rf qstat
 
 RUN cd /tmp                                                                          && \
     git clone https://github.com/NagiosEnterprises/nagioscore.git -b $NAGIOS_BRANCH  && \
@@ -121,8 +108,6 @@ RUN cd /tmp                                                                     
     ./tools/setup                                                                             && \
     ./configure                                                 \
         --prefix=${NAGIOS_HOME}                                 \
-        --with-ipv6                                             \
-        --with-ping6-command="/bin/ping6 -n -U -W %d -c %d %s"  \
                                                                                               && \
     make                                                                                      && \
     make install                                                                              && \
