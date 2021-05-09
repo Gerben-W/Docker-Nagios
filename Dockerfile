@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 ENV NAGIOS_HOME            /opt/nagios
 ENV NAGIOS_USER            nagios
