@@ -1,5 +1,3 @@
-# Try compleet rebuild
-
 FROM ubuntu:20.04
 
 ENV NAGIOS_HOME            /opt/nagios
