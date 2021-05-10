@@ -2,9 +2,9 @@
 
 Docker image for Nagios
 
-Build Status: [![Build Status](https://travis-ci.org/JasonRivers/Docker-Nagios.svg?branch=master)](https://travis-ci.org/JasonRivers/Docker-Nagios)
+This is a fork of jasonrivers/nagios.
 
-Nagios Core 4.4.5 running on Ubuntu 16.04 LTS with NagiosGraph & NRPE
+Nagios Core 4.4.6 running on Ubuntu 20.04 LTS with NagiosGraph & NRPE
 
 ### Configurations
 Nagios Configuration lives in /opt/nagios/etc
@@ -13,7 +13,7 @@ NagiosGraph configuration lives in /opt/nagiosgraph/etc
 ### Install
 
 ```sh
-docker pull jasonrivers/nagios:latest
+docker pull docker pull capino/nagios-4.4.6:latest
 ```
 
 ### Running
@@ -21,7 +21,7 @@ docker pull jasonrivers/nagios:latest
 Run with the example configuration with the following:
 
 ```sh
-docker run --name nagios4 -p 0.0.0.0:8080:80 jasonrivers/nagios:latest
+docker run --name nagios4 -p 0.0.0.0:8080:80 capino/nagios-4.4.6:latest
 ```
 
 alternatively you can use external Nagios configuration & log data with the following:
@@ -33,7 +33,7 @@ docker run --name nagios4  \
   -v /path-to-custom-plugins:/opt/Custom-Nagios-Plugins \
   -v /path-to-nagiosgraph-var:/opt/nagiosgraph/var \
   -v /path-to-nagiosgraph-etc:/opt/nagiosgraph/etc \
-  -p 0.0.0.0:8080:80 jasonrivers/nagios:latest
+  -p 0.0.0.0:8080:80 capino/nagios-4.4.6:latest
 ```
 
 Note: The path for the custom plugins will be /opt/Custom-Nagios-Plugins, you will need to reference this directory in your configuration scripts.
